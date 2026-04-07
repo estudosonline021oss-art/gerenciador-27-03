@@ -17,3 +17,13 @@ def create(request):
         Tarefa.objects.create(tarefa=titulo, descricao=descricao, data=data, status=status)
         return redirect('tasks')
     return render(request, 'task/create.html')
+
+def delete_task(request, id):
+    tarefa = Tarefa.objects.get(pk=id)
+
+    if request.method == 'POST':
+        tarefa.delete()
+        return redirect('tasks')
+
+    return render(request, 'task/delete_task.html', {'tarefa': tarefa})
+   

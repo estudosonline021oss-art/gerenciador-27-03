@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="fs5">Tem certeza que deseja excluir esta tarefa?</h1>
+      <p class="fs2">Esta ação não pode ser desfeita.</p>
+      <p class="fs3">
+        <br />
+        id: {{tarefa.id}} <br />Titulo: {{tarefa.tarefa}} <br />Descrição:
+        {{tarefa.descricao}} <br />Data de Vencimento: {{tarefa.data}}
+        <br />Status: {{tarefa.status}}
+      </p>
+      <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        <a href="{% url 'tasks' %}" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,19 +31,18 @@
                 {% for tarefa in tarefas %}
                 <tr>
                     <th scope="row">{{ tarefa.id }}</th>
-                    <td>{{tarefa.titulo}}</td>
+                    <td>{{tarefa.tarefa}}</td>
                     <td>{{tarefa.descricao}}</td>
                     <td>{{tarefa.data}}</td>
                     <td>{{tarefa.status}}</td>
                     <td>
                         <a class="btn btn-primary">Editar</a>
-                        <a class="btn btn-danger">Excluir</a>
+                        <a class="btn btn-danger" href="{% url 'delete' tarefa.id%}">Excluir</a>
                     <td>
                 </tr>
                 {%endfor%}
                               
-            </tbody>
-            </table>
+            </tbody></a>
             <a class="btn btn-success" href="{% url 'create' %}">Nova Tarefa</a>
 
         </div>
