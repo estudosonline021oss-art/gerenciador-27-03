@@ -19,7 +19,7 @@ def create(request):
         data =request.POST.get('data')
         status = False
         Tarefa.objects.create(tarefa=titulo, descricao=descricao, data=data, status=status)
-        return redirect('tasks')
+        return redirect('index')
     return render(request, 'task/create.html')
 
 @login_required
@@ -28,7 +28,7 @@ def delete_task(request, id):
 
     if request.method == 'POST':
         tarefa.delete()
-        return redirect('tasks')
+        return redirect('index')
 
     return render(request, 'task/delete_task.html', {'tarefa': tarefa})
    
