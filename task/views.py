@@ -1,26 +1,26 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from task.models import Tarefa
+from .forms import TarefaForm
 
 @login_required
-def index(request):
+def index(request):    
     return render(request, 'task/index.html')
 
 @login_required
 def task_list(request):
-    lista = Tarefa.objects.all()
+    lista = Tarefa.objects.filter(usuario = request.user)
     return render(request, 'task/tasks.html', {'tarefas': lista})
 
 @login_required
 def create(request):
-    if request.method == 'POST':
-        titulo = request.POST.get('titulo')
-        descricao = request.POST.get('descricao')
-        data =request.POST.get('data')
-        status = False
-        Tarefa.objects.create(tarefa=titulo, descricao=descricao, data=data, status=status)
+    form = TarefaForm(request.POST or None)
+    if request.method == 'POST'and form.is_valid():
+        tarefa = form.save(commit=False)
+        tarefa.usuario = request.user
+        tarefa.save()
         return redirect('index')
-    return render(request, 'task/create.html')
+    return render(request, 'task/create.html', {'form': form})
 
 @login_required
 def delete_task(request, id):
